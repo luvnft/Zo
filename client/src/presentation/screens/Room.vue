@@ -108,7 +108,7 @@ async function buttonClicked(): Promise<void> {
   setButtonLoader(false)
 
   if (invoiceLink === null) {
-    showAlert('Could not create invoice 😔')
+    showAlert('This is just a demo app, no amount of money is debited.')
 
     return
   }
