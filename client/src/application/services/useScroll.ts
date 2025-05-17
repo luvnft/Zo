@@ -1,54 +1,49 @@
 interface useScrollComposableState {
-  /**
-   * Lock the scroll
-   */
   lock: () => void;
-
-  /**
-   * Unlock the scroll
-   */
   unlock: () => void;
-
-  /**
-   * Scroll to element
-   */
   scrollTo: (el: HTMLElement, offset?: number) => void;
 }
 
-/**
- * Methods for working with the scroll
- */
+let previousScrollY = 0;
+
 export const useScroll = (): useScrollComposableState => {
-  /**
-   * Lock the scroll
-   */
   function lock(): void {
-    document.body.style.overflow = 'hidden'
+    previousScrollY = window.scrollY;
+
+    // Add scroll lock styles to body
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${previousScrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.overflow = 'hidden';
+    document.body.style.width = '100%';
   }
 
-  /**
-   * Unlock the scroll
-   */
   function unlock(): void {
-    document.body.style.overflow = 'unset'
+    // Revert scroll lock styles
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.overflow = '';
+    document.body.style.width = '';
+
+    // Restore scroll position
+    window.scrollTo(0, previousScrollY);
   }
 
-  /**
-   * Scroll to element
-   *
-   * @param el The element to scroll to
-   * @param offset The offset to scroll to
-   */
   function scrollTo(el: HTMLElement, offset = 0): void {
+    const top = el.getBoundingClientRect().top + window.scrollY - offset;
+
     window.scrollTo({
-      top: el.offsetTop - offset,
+      top,
       behavior: 'smooth',
-    })
+    });
   }
 
   return {
     lock,
     unlock,
     scrollTo,
-  }
-}
+  };
+};
