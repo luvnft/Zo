@@ -80,6 +80,7 @@ body {
   color: var(--color-text);
   position: relative;
   user-select: none;
+  padding-top: var(--header-height, 56px); /* Add spacing for fixed header */
 }
 
 .app-header {
@@ -87,6 +88,20 @@ body {
   top: 0;
   left: 0;
   right: 0;
+  height: var(--header-height, 56px); /* Consistent header height */
+  background-color: var(--color-bg-primary);
+  z-index: 1000; /* Ensure it's above other elements */
+}
+
+/* Optional: Responsive adjustments for smaller screens */
+@media (max-width: 460px) {
+  .app-header {
+    height: 48px;
+  }
+
+  .app {
+    padding-top: 48px;
+  }
 }
 
 .default-segue-leave-active {
