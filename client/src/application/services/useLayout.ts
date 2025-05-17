@@ -1,5 +1,5 @@
 import { createSharedComposable } from '@vueuse/core'
-import { type Ref, ref } from 'vue'
+import { type Ref, ref, onMounted, onUnmounted } from 'vue'
 
 /**
  * App layout attributes
@@ -12,14 +12,23 @@ interface useLayoutComposableState {
 }
 
 /**
- * Service for for working with layout
+ * Service for working with layout
  */
 export const useLayout = createSharedComposable((): useLayoutComposableState => {
   const appWidth = ref(0)
 
-  if (appWidth.value === 0) {
-    appWidth.value = document.getElementById('app')?.offsetWidth ?? 0
+  const updateAppWidth = () => {
+    appWidth.value = document.getElementById('app')?.offsetWidth ?? window.innerWidth
   }
+
+  onMounted(() => {
+    updateAppWidth()
+    window.addEventListener('resize', updateAppWidth)
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('resize', updateAppWidth)
+  })
 
   return {
     appWidth,
