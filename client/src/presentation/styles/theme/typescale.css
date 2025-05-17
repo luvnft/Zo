@@ -1,271 +1,263 @@
 :root {
-  --family: system-ui, Inter, Avenir, Helvetica, Arial, sans-serif;
-  --rounded-family: SF Pro Rounded, "ui-rounded", system-ui;
+  /* === Base Font Families === */
+  --font-family-base: "system-ui", "Inter", "Avenir", "Helvetica", "Arial", sans-serif;
+  --font-family-rounded: "SF Pro Rounded", "ui-rounded", var(--font-family-base);
+  --font-family-mono: "SF Mono", monospace;
+
+  /* === Font Sizes & Line Heights === */
+  --font-size-title-1: 28px;
+  --line-height-title-1: 34px;
 
   --font-size-title-2: 22px;
   --line-height-title-2: 28px;
 
+  --font-size-title-3: 20px;
+  --line-height-title-3: 24px;
+
   --font-size-headline: 17px;
   --line-height-headline: 22px;
-
-  --font-size-subheadline-2: 14px;
-  --line-height-subheadline-2: 18px;
-  --ls-subheadline-2: -0.15px;
 
   --font-size-body: 17px;
   --line-height-body: 22px;
 
-
-  .is-material {
-    /**
-     * Some android devices uses custom fonts, but Telegram uses Roboto, so we need to load it manually
-     */
-    @font-face {
-      font-family: 'Roboto';
-      font-style: normal;
-      font-weight: 400;
-      src: url('../../assets/fonts/Roboto-Regular.ttf') format('truetype');
-    }
-
-    @font-face {
-      font-family: 'Roboto';
-      font-style: normal;
-      font-weight: 500;
-      src: url('../../assets/fonts/Roboto-Medium.ttf') format('truetype');
-    }
-
-    @font-face {
-      font-family: 'Roboto';
-      font-style: normal;
-      font-weight: 700;
-      src: url('../../assets/fonts/Roboto-Bold.ttf') format('truetype');
-    }
-
-    @font-face {
-      font-family: 'Roboto';
-      font-style: normal;
-      font-weight: 900;
-      src: url('../../assets/fonts/Roboto-Black.ttf') format('truetype');
-    }
-
-    --family: "Roboto", system-ui, Inter, Avenir, Helvetica, Arial, sans-serif;
-
-    --font-size-title-2: 20px;
-    --line-height-title-2: 24px;
-
-    --font-size-headline: 16px;
-    --line-height-headline: 20px;
-
-    --font-size-subheadline-2: 15px;
-    --line-height-subheadline-2: 17px;
-    --ls-subheadline-2: 0;
-
-    --font-size-body: 16px;
-    --line-height-body: 20px;
-  }
-
-  .is-exact-tdesktop {
-    @font-face {
-      font-family: 'Open Sans';
-      src: url('../../assets/fonts/OpenSans.ttf') format('truetype');
-    }
-
-    --family: 'Open Sans',"Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,Verdana,sans-serif;
-  }
-
-  --title-1 {
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: 0.38px;
-  }
-
-  --title-2 {
-    font-size: var(--font-size-title-2);
-    line-height: var(--line-height-title-2);
-    /* letter-spacing: -0.26px; */
-  }
-
-  --title-2-semibold {
-    @apply --title-2;
-
-    font-weight: 600;
-  }
-
-  --title-3 {
-    font-size: 20px;
-    line-height: 24px;
-    letter-spacing: -0.45px;
-  }
-
-  --title-3-bold {
-    @apply --title-3;
-
-    font-weight: 700;
-  }
-
-  --title-3-rounded-semibold {
-    @apply --title-3-bold;
-
-    font-weight: 600;
-    font-family: var(--rounded-family);
-  }
-
-  --headline {
-    font-size: var(--font-size-headline);
-    line-height: var(--line-height-headline);
-  }
-
-  --headline--semibold {
-    @apply --headline;
-
-    font-weight: 590;
-  }
-
-  --body {
-    font-size: var(--font-size-body);
-    line-height: var(--line-height-body);
-    letter-spacing: -0.43px;
-  }
-
-  --body-medium {
-    @apply --body;
-
-    font-weight: 500;
-  }
-
-  --body-semibold {
-    @apply --body;
-
-    font-weight: 600;
-  }
-
-  --body-strikethrough {
-    @apply --body;
-
-    text-decoration: line-through;
-  }
-
-  --body-mono {
-    @apply --body;
-
-    font-family: SF Mono, Monospace;
-  }
-
-  --body-mono-numbers {
-    @apply --body-mono;
-
-    font-feature-settings: 'tnum' on, 'lnum' on;
-  }
-
-  --body-compact {
-    font-size: 16px;
-    line-height: 20px;
-  }
-
-  --body-compact-medium {
-    @apply --body-compact;
-
-    font-weight: 500;
-  }
-
-
-  --callout {
-    font-size: 16px;
-    line-height: 22px;
-    letter-spacing: -0.31px;
-  }
-
-  --callout-medium {
-    @apply --callout;
-
-    font-weight: 500;
-  }
-
-  --callout-semibold {
-    @apply --callout;
-
-    font-weight: 600;
-  }
-
-  --subheadline-1 {
-    font-size: 15px;
-    line-height: 18px;
-    letter-spacing: -0.23px;
-  }
-
-  --subheadline-rounded-semibold {
-    @apply --subheadline-1;
-
-    font-weight: 600;
-    font-family: var(--rounded-family);
-    letter-spacing: 0.45px;
-  }
-
-  --subheadline-2 {
-    font-size: var(--font-size-subheadline-2:);
-    line-height: var(--line-height-subheadline-2);
-    letter-spacing: var(--ls-subheadline-2);
-  }
-
-  --subheadline-2-semibold {
-    @apply --subheadline-2;
-
-    font-weight: 600;
-  }
-
-  --subheadline-2-rounded-semibold {
-    @apply --subheadline-2-semibold;
-
-    font-family: var(--rounded-family);
-    letter-spacing: 0.49px;
-  }
-
-  --footnote {
-    font-size: 13px;
-    line-height: 16px;
-    /* letter-spacing: -0.08px; */
-  }
-
-  --footnote-semibold {
-    @apply --footnote;
-
-    font-weight: 600;
-  }
-
-  --footnote-caps {
-    @apply --footnote;
-
-    text-transform: uppercase;
-  }
-
-  --footnote-caps-semibold {
-    @apply --footnote-caps;
-
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-weight: 590;
-  }
-
-  --footnote-rounded-semibold {
-    @apply --footnote;
-
-    font-weight: 600;
-    font-family: var(--rounded-family);
-  }
-
-  --caption-1 {
-    font-size: 12px;
-    line-height: 16px;
-  }
-
-  --caption-2 {
-    font-size: 11px;
-    line-height: 13px;
-    letter-spacing: 0.06px;
-  }
-
-  --caption-2-medium {
-    @apply --caption-2;
-
-    font-weight: 500;
-  }
+  --font-size-callout: 16px;
+  --line-height-callout: 22px;
+
+  --font-size-subheadline-1: 15px;
+  --line-height-subheadline-1: 18px;
+
+  --font-size-subheadline-2: 14px;
+  --line-height-subheadline-2: 18px;
+
+  --font-size-footnote: 13px;
+  --line-height-footnote: 16px;
+
+  --font-size-caption-1: 12px;
+  --line-height-caption-1: 16px;
+
+  --font-size-caption-2: 11px;
+  --line-height-caption-2: 13px;
+
+  /* === Letter Spacing === */
+  --letter-spacing-tight: -0.26px;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.38px;
+  --letter-spacing-subtle: 0.06px;
+
+  /* === Default Font Family === */
+  --font-family: var(--font-family-base);
+}
+
+/* === Android / Material Devices === */
+.is-material {
+  --font-family: "Roboto", var(--font-family-base);
+
+  --font-size-title-2: 20px;
+  --line-height-title-2: 24px;
+
+  --font-size-headline: 16px;
+  --line-height-headline: 20px;
+
+  --font-size-subheadline-2: 15px;
+  --line-height-subheadline-2: 17px;
+  --letter-spacing-subheadline-2: var(--letter-spacing-normal);
+}
+
+/* === Telegram Desktop === */
+.is-exact-tdesktop {
+  --font-family: "Open Sans", "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
+}
+
+/* === Text Styles === */
+
+/* Titles */
+.title-1 {
+  font-size: var(--font-size-title-1);
+  line-height: var(--line-height-title-1);
+  letter-spacing: var(--letter-spacing-wide);
+  font-weight: 700;
+}
+
+.title-2 {
+  font-size: var(--font-size-title-2);
+  line-height: var(--line-height-title-2);
+  font-weight: 600;
+}
+
+.title-3 {
+  font-size: var(--font-size-title-3);
+  line-height: var(--line-height-title-3);
+  letter-spacing: -0.45px;
+  font-weight: 700;
+}
+
+.title-3-rounded {
+  font-size: var(--font-size-title-3);
+  line-height: var(--line-height-title-3);
+  font-weight: 600;
+  font-family: var(--font-family-rounded);
+}
+
+/* Headline */
+.headline {
+  font-size: var(--font-size-headline);
+  line-height: var(--line-height-headline);
+  font-weight: 590;
+}
+
+/* Body */
+.body {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  letter-spacing: -0.43px;
+  font-weight: 400;
+}
+
+.body-medium {
+  font-weight: 500;
+}
+
+.body-semibold {
+  font-weight: 600;
+}
+
+.body-strikethrough {
+  text-decoration: line-through;
+}
+
+.body-mono {
+  font-family: var(--font-family-mono);
+}
+
+.body-mono-numbers {
+  font-family: var(--font-family-mono);
+  font-feature-settings: 'tnum' on, 'lnum' on;
+}
+
+.body-compact {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.body-compact-medium {
+  font-weight: 500;
+}
+
+/* Callout */
+.callout {
+  font-size: var(--font-size-callout);
+  line-height: var(--line-height-callout);
+  letter-spacing: -0.31px;
+  font-weight: 400;
+}
+
+.callout-medium {
+  font-weight: 500;
+}
+
+.callout-semibold {
+  font-weight: 600;
+}
+
+/* Subheadlines */
+.subheadline-1 {
+  font-size: var(--font-size-subheadline-1);
+  line-height: var(--line-height-subheadline-1);
+  letter-spacing: -0.23px;
+}
+
+.subheadline-rounded {
+  font-size: var(--font-size-subheadline-1);
+  line-height: var(--line-height-subheadline-1);
+  font-weight: 600;
+  letter-spacing: 0.45px;
+  font-family: var(--font-family-rounded);
+}
+
+.subheadline-2 {
+  font-size: var(--font-size-subheadline-2);
+  line-height: var(--line-height-subheadline-2);
+  letter-spacing: var(--letter-spacing-tight);
+  font-weight: 400;
+}
+
+.subheadline-2-semibold {
+  font-weight: 600;
+}
+
+.subheadline-2-rounded {
+  font-weight: 600;
+  font-family: var(--font-family-rounded);
+  letter-spacing: 0.49px;
+}
+
+/* Footnotes */
+.footnote {
+  font-size: var(--font-size-footnote);
+  line-height: var(--line-height-footnote);
+}
+
+.footnote-semibold {
+  font-weight: 600;
+}
+
+.footnote-caps {
+  text-transform: uppercase;
+}
+
+.footnote-caps-semibold {
+  text-transform: uppercase;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-weight: 590;
+}
+
+.footnote-rounded {
+  font-weight: 600;
+  font-family: var(--font-family-rounded);
+}
+
+/* Captions */
+.caption-1 {
+  font-size: var(--font-size-caption-1);
+  line-height: var(--line-height-caption-1);
+}
+
+.caption-2 {
+  font-size: var(--font-size-caption-2);
+  line-height: var(--line-height-caption-2);
+  letter-spacing: var(--letter-spacing-subtle);
+}
+
+.caption-2-medium {
+  font-weight: 500;
+}
+
+/* === Font Face Declarations (Scoped) === */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../assets/fonts/Roboto-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../../assets/fonts/Roboto-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../../assets/fonts/Roboto-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../../assets/fonts/Roboto-Black.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../../assets/fonts/OpenSans.ttf') format('truetype');
 }
