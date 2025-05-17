@@ -4,20 +4,20 @@
 export const citiesAvailable = [
   {
     id: 1,
-    title: 'Bengaluru',
-    emoji: '🇮🇳',
-    country: 'India',
+    title: 'Atlantic City',
+    emoji: '🇺🇸',
+    country: 'United States',
   },
   {
     id: 2,
-    title: 'San Francisco',
+    title: 'Atlanta',
     emoji: '🇺🇸',
     country: 'United States',
   },
   {
     id: 3,
-    title: 'Dubai',
-    emoji: '🇦🇪',
-    country: 'United Arab Emirates',
+    title: 'New Orleans',
+    emoji: '🇺🇸',
+    country: 'United States',
   },
 ]
