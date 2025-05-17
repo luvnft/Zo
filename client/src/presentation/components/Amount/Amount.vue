@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   /**
-   * Will be placed at top-left corner near the number
+   * Optional prefix, like currency symbol or label
    */
   prefix?: string;
 }>()
@@ -9,33 +9,19 @@ defineProps<{
 
 <template>
   <div class="amount">
-    <div
-      v-if="$slots.topline"
-      class="topline"
-    >
+    <div v-if="$slots.topline" class="topline">
       <slot name="topline" />
     </div>
 
     <span class="digit">
-      <span
-        v-if="prefix"
-        class="prefix"
-      >
-        {{ prefix }}
-      </span>
+      <span v-if="prefix" class="prefix">{{ prefix }}</span>
       <slot />
-      <span
-        v-if="$slots.postfix"
-        class="postfix"
-      >
+      <span v-if="$slots.postfix" class="postfix">
         <slot name="postfix" />
       </span>
     </span>
 
-    <div
-      v-if="$slots.subline"
-      class="subline"
-    >
+    <div v-if="$slots.subline" class="subline">
       <slot name="subline" />
     </div>
   </div>
@@ -43,38 +29,31 @@ defineProps<{
 
 <style scoped>
 @import '@/presentation/styles/theme/typescale.css';
+
 .amount {
   display: grid;
+  gap: 4px;
   grid-auto-rows: min-content;
-  gap: 3px;
 }
 
 .digit {
   @apply --title-3-rounded-semibold;
-
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
   white-space: nowrap;
 }
 
-.subline,
-.topline {
+.topline,
+.subline {
   @apply --caption-1;
-
-  color: var(--color-text-secondary);
   color: var(--color-hint);
 }
 
-.prefix {
-  @apply --footnote-rounded-semibold;
-
-  color: var(--color-hint);
-  vertical-align: text-top;
-  line-height: 24px;
-}
-
+.prefix,
 .postfix {
   @apply --footnote-rounded-semibold;
-
   color: var(--color-hint);
-  vertical-align: middle;
+  line-height: 1;
 }
 </style>
