@@ -5,6 +5,7 @@ import { useCities } from '@/domain/services/useCities'
 import { useTripDetails } from '@/domain/services/useTripDetails'
 import { useTelegram, useLottie } from '@/application/services'
 import { useRouter } from 'vue-router'
+import { useDebounceFn } from '@vueuse/core'
 
 /**
  * Cities list
@@ -12,9 +13,17 @@ import { useRouter } from 'vue-router'
 const { cities } = useCities()
 
 /**
- * Search input value
+ * Search input values (raw and debounced)
  */
+const rawSearch = ref('')
 const searchQuery = ref('')
+
+watch(
+  rawSearch,
+  useDebounceFn((val) => {
+    searchQuery.value = val.trim()
+  }, 200)
+)
 
 /**
  * Selected city id
@@ -27,29 +36,42 @@ const selectedId = ref(0)
 const { animationData } = useLottie('eyes')
 
 /**
- * Search result
+ * Filtered cities
  */
-const citiesFiltered = computed(() => {
-  return cities.value.filter(city => {
-    return city.title.toLowerCase().includes(searchQuery.value.toLowerCase())
-  })
+const citiesFiltered = computed(() =>
+  cities.value.filter(city =>
+    city.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+)
+
+/**
+ * Ensure selected city is visible if not in filtered list
+ */
+const visibleCities = computed(() => {
+  const filtered = citiesFiltered.value
+  const selected = cities.value.find(city => city.id === selectedId.value)
+  if (selected && !filtered.includes(selected)) {
+    return [selected, ...filtered]
+  }
+  return filtered
 })
 
 /**
- * Select city
- *
- * @param id - City id to select
+ * Select a city
  */
 function selectCity(id: number): void {
   selectedId.value = id
 }
 
+/**
+ * Trip details and Telegram integration
+ */
 const { setCity, trip } = useTripDetails()
 const { showMainButton, hideMainButton, expand, showBackButton, hideBackButton, vibrate } = useTelegram()
 const router = useRouter()
 
 /**
- * Vibrate when no cities found
+ * Feedback: vibrate if no results
  */
 watch(citiesFiltered, () => {
   if (citiesFiltered.value.length === 0) {
@@ -57,6 +79,9 @@ watch(citiesFiltered, () => {
   }
 })
 
+/**
+ * Handle UI effects on mount/unmount
+ */
 onMounted(() => {
   if (trip.city !== 0) {
     selectedId.value = trip.city
@@ -64,43 +89,59 @@ onMounted(() => {
 
   expand()
 
-  showMainButton('Select', () => {
-    setCity(selectedId.value)
-
-    void router.push('/')
-  })
+  if (selectedId.value !== 0) {
+    showMainButton('Select', () => {
+      setCity(selectedId.value)
+      void router.push('/')
+    })
+  }
 
   showBackButton(() => {
     void router.back()
   })
 })
 
+watch(selectedId, (id) => {
+  if (id === 0) {
+    hideMainButton()
+  } else {
+    showMainButton('Select', () => {
+      setCity(id)
+      void router.push('/')
+    })
+  }
+})
+
 onBeforeUnmount(() => {
   hideMainButton()
   hideBackButton()
 })
+
+/**
+ * Loading state for empty cities
+ */
+const isLoading = computed(() => cities.value.length === 0 && rawSearch.value === '')
 </script>
 
 <template>
   <div class="locations">
     <Sections>
-      <Section
-        padded
-      >
+      <Section padded>
         <Input
-          v-model="searchQuery"
+          v-model="rawSearch"
           placeholder="Search for a city"
           left-icon="search"
         />
       </Section>
+
       <Section
-        v-if="citiesFiltered.length"
+        v-if="visibleCities.length"
         with-background
         standalone
       >
         <List>
           <ListItem
-            v-for="city in citiesFiltered"
+            v-for="city in visibleCities"
             :id="city.id"
             :key="city.id"
             :title="city.title"
@@ -116,6 +157,23 @@ onBeforeUnmount(() => {
           </ListItem>
         </List>
       </Section>
+
+      <Placeholder
+        v-else-if="isLoading"
+        title="Loading"
+        caption="Fetching cities..."
+      >
+        <template #picture>
+          <Lottie
+            v-if="animationData"
+            :animation-data="animationData"
+            width="50px"
+            height="50px"
+            class="pic"
+          />
+        </template>
+      </Placeholder>
+
       <Placeholder
         v-else
         title="No results"
