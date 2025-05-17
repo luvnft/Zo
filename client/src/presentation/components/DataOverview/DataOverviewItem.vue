@@ -9,9 +9,7 @@ defineProps<{
 
 <template>
   <div class="data-table-item">
-    <div class="title">
-      {{ title }}
-    </div>
+    <div class="title">{{ title }}</div>
 
     <div class="content">
       <slot name="content" />
@@ -25,28 +23,33 @@ defineProps<{
 
 <style scoped>
 @import '@/presentation/styles/theme/typescale.css';
+
 .data-table-item {
   display: grid;
-  grid-gap: 4px;
+  gap: 4px;
   padding-inline: 10px;
   min-width: 95px;
 
+  text-align: center;
   color: var(--color-hint);
-
   @apply --caption-2;
-  justify-items: center;
+}
+
+.title {
+  text-transform: uppercase;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.content {
+  min-height: 27px;
+  display: flex;
+  align-items: center;
   justify-content: center;
+}
 
-  .title {
-    display: grid;
-    line-height: 20px;
-    text-transform: uppercase;
-  }
-
-  .content {
-    display: grid;
-    height: 27px;
-    align-items: center;
-  }
+.footer {
+  font-size: 12px;
+  color: var(--color-text-secondary);
 }
 </style>
