@@ -1,24 +1,52 @@
-/* ===================================================
-   Modern Reset CSS for App-like UX (Telegram Mini App)
-   =================================================== */
+/* ==========================================================
+   Modern CSS Reset for a Stable, App-like Mobile UX
+   ========================================================== */
 
-/* 1. Reset box sizing for all elements */
+/* 1. Core Layout & Font Smoothing */
 html {
   box-sizing: border-box;
+  /* Prevent font scaling on orientation change in iOS */
+  -webkit-text-size-adjust: 100%; 
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Prevent horizontal scrolling */
+  overflow-x: hidden;
+}
+
+body {
+  /* Ensure body takes up at least the full dynamic viewport height */
+  min-height: 100dvh; 
+  /* Standard font for modern UIs */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  touch-action: manipulation;
+  /* Prevent horizontal scrolling on the body as well */
+  overflow-x: hidden; 
+  /* Improve default text rendering */
+  text-rendering: optimizeLegibility;
+  /* Remove tap highlight on links in mobile WebKit */
   -webkit-tap-highlight-color: transparent;
+  /* Allow panning and pinching, but disable double-tap to zoom */
+  touch-action: manipulation;
 }
 
-*, *::before, *::after {
+/* 2. Inherit box-sizing */
+*, 
+*::before, 
+*::after {
   box-sizing: inherit;
+  /* Remove all animations and transitions for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
-/* 2. Reset default margin, padding, borders, and font inheritance */
-html, body, div, span, applet, object, iframe,
+/* 3. Aggressive Reset of Spacing, Borders, and Font Styles */
+body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -34,83 +62,92 @@ time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
-  font: inherit;
+  font: inherit; /* Inherits font properties from the parent */
   vertical-align: baseline;
 }
 
-/* 3. Set display for HTML5 elements */
+/* 4. HTML5 Display Roles */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
 }
 
-/* 4. Remove default quote styling */
+/* 5. Reset Lists for Custom Styling */
+ol, ul {
+  list-style: none;
+}
+
+/* 6. Reset Quotes */
 blockquote, q {
   quotes: none;
 }
-
 blockquote::before, blockquote::after,
 q::before, q::after {
   content: '';
 }
 
-/* 5. Tables - collapse borders */
+/* 7. Reset Tables */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* 6. Links - inherit color and remove underline */
+/* 8. Links - Clean Base */
 a {
   color: inherit;
   text-decoration: none;
 }
 
-/* 7. Buttons and inputs - clean base styles */
+/* 9. Images, SVGs, and other media */
+img, svg, video, canvas, picture {
+  display: block;
+  max-width: 100%;
+}
+
+/* 10. Buttons & Inputs - Clean Base */
 button,
 input,
 textarea,
 select {
   font: inherit;
   color: inherit;
-  background: none;
+  background-color: transparent;
   border: none;
   outline: none;
   padding: 0;
   margin: 0;
   appearance: none;
-  background-color: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
-button:focus,
-input:focus,
-textarea:focus,
-select:focus {
-  outline: 2px solid var(--color-link, #007aff);
+/* Use :focus-visible for a more intelligent focus indicator */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-link, #007aff); /* Fallback color */
   outline-offset: 2px;
 }
 
-/* 8. Images & SVGs */
-img, svg {
-  display: block;
-  max-width: 100%;
-  height: auto;
+/* 11. Input Placeholders */
+input::placeholder,
+textarea::placeholder {
+    /* Lower opacity for placeholder text to differentiate it */
+    opacity: 0.7; 
 }
 
-/* 9. Inputs - special cases */
-input {
-  width: 100%;
-  height: 100%;
-  line-height: 1;
-  box-shadow: none;
+/* 12. Disable WebKit Autofill Background Color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px var(--color-background, white) inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
-input[disabled]::placeholder {
-  color: inherit;
-}
-
-/* 10. Disable autofill background styles in WebKit */
-input:-webkit-autofill {
-  transition-delay: 9999s;
-  transition-property: background-color, color;
-}
