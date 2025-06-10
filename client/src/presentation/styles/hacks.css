@@ -1,4 +1,4 @@
-:root {
+
   /**
    * If an element has overflow: hidden and border-radius, overflow is ignored in Safari.
    * This fix solves the issue
@@ -54,4 +54,3 @@
   &.visible {
     display: block;
   }
-}
